@@ -1,34 +1,43 @@
+"""
+Heap Sort Algorithm.
+
+Creado el 09/10/2020 por Carlos A. López Herrera
+"""
 
 
+# Build the heap from the array.
+def heap_up(array, index, length):
+    root = index  # Set the index of the root.
+    left = 2 * index + 1  # Set the index of the left child.
+    right = 2 * index + 2  # Set the index of the right child.
 
-def heap_up(a, indx, length):
-    root = indx
-    left = 2 * indx + 1
-    right = 2 * indx + 2
-
-    if left < length and a[indx] < a[left]:
+    # if left child exists and it's bigger than the root,
+    # then swap them.
+    if left < length and array[index] < array[left]:
         root = left
-    if right < length and a[root] < a[right]:
+    # if right child exists and it's bigger than the root,
+    # then swap them.
+    if right < length and array[root] < array[right]:
         root = right
-    if root != indx:
-        a[indx], a[root] = a[root], a[indx]
+    # if the index of root is different than the current index
+    # then swap the values.
+    if root != index:
+        array[index], array[root] = array[root], array[index]
 
-        heap_up(a, root, length)
+        # Recursive call on the new root.
+        heap_up(array, root, length)
 
 
-def heap_sorting(a):
-    n = len(a)
+# Sort the root.
+def heap_sorting(array):
+    # Get the length of the array.
+    n = len(array)
 
+    # Apply the heap_up method on each root, from bottom to top.
     for i in range(n // 2 - 1, -1, -1):
-        heap_up(a, i, n)
+        heap_up(array, i, n)
 
+    # Subtract the max root, and re-apply the heap_up method to the remaining elements.
     for j in range(n - 1, 0, -1):
-        a[j], a[0] = a[0], a[j]
-        heap_up(a, 0, j)
-
-
-
-
-
-
-
+        array[j], array[0] = array[0], array[j]
+        heap_up(array, 0, j)

@@ -1,26 +1,37 @@
+"""
+Test the execution time of the HeapSort algorithm.
+
+This program was created with academic purposes as an assaigment for the "Análisis de Algoritmos" curse
+of MIA, UV.
+
+Created on 09/10/2020 by Carlos A. López Herrera.
+"""
+
+
 from numpy.random import randint
 from heapsort import heap_sorting
 import time
 import csv
 
+# 10 test of different array's size
+tests = [5, 10, 50, 100, 500, 1000, 5000, 10000, 50000, 100000]
 
-tests = [2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000,
-         2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 90000,
-         100000]
-
-with open('algorithm_test.csv', 'w', newline='') as file:
+# Create and open a new csv file to register the time measures of the execution of the program.
+with open('time_measures.csv', 'w', newline='') as file:
     writer = csv.writer(file)
+    # write the headers.
     writer.writerow(['N', 'Tiempo'])
+    # Iterate the tests
     for test in tests:
-        print(f'-------N = {test}-----')
+        # Initialize a array of random integers from 0 to 10,000 of the correspondent size.
         array = randint(10000, size=test)
-        print(f'Original: {array}')
+        # Get the initial time.
         t_start = time.time()
         heap_sorting(array)
+        # Get the final time.
         t_end = time.time()
-        print(f'Final: {array}')
-        print(f'Duration: {t_end - t_start}\n')
 
+        # Write the array's size and the execution time on the next row.
         writer.writerow([test, t_end - t_start])
 
 
